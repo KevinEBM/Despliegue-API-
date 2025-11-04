@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: workout-service
+
+  r2dbc:
+    url: r2dbc:mysql://mysql:3306/fitness_db   # 👈 'mysql' es el nombre del contenedor
+    username: root
+    password: root
+
+  sql:
+    init:
+      mode: never
+
+logging:
+  level:
+    org.springframework.data.r2dbc: DEBUG
+    io.r2dbc.mysql: DEBUG
+    org.springframework.web: INFO

@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # 💪 Ruta al microservicio de rutinas
+        - id: workout-service
+          uri: http://workout-service:8081
+          predicates:
+            - Path=/api/workouts/**
+          filters:
+            - StripPrefix=1
+
+        # 🧘 Ruta al microservicio de hábitos
+        - id: habit-service
+          uri: http://habit-service:8082
+          predicates:
+            - Path=/api/habits/**
+          filters:
+            - StripPrefix=1
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    org.springframework.web: INFO

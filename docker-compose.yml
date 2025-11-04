@@ -1,0 +1,65 @@
+services:
+  # 🗄️ Base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: fitness-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fitness_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - fitness-net
+
+  # 💪 Servicio de rutinas
+  workout-service:
+    build: ./workout-service
+    container_name: workout-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:mysql://mysql:3306/fitness_db
+      - SPRING_R2DBC_USERNAME=root
+      - SPRING_R2DBC_PASSWORD=root
+    depends_on:
+      - mysql
+    networks:
+      - fitness-net
+
+  # 🧘 Servicio de hábitos
+  habit-service:
+    build: ./habit-service
+    container_name: habit-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:mysql://mysql:3306/fitness_db
+      - SPRING_R2DBC_USERNAME=root
+      - SPRING_R2DBC_PASSWORD=root
+    depends_on:
+      - mysql
+    networks:
+      - fitness-net
+
+  # 🚪 API Gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - workout-service
+      - habit-service
+    networks:
+      - fitness-net
+
+# 🔗 Red compartida por todos los servicios
+networks:
+  fitness-net:
+    driver: bridge
+
+# 💾 Volumen persistente de la base de datos
+volumes:
+  mysql_data:

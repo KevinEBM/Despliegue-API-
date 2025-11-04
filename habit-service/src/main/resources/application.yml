@@ -1,0 +1,24 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: habit-service
+
+  r2dbc:
+    url: r2dbc:mysql://fitness-mysql:3306/fitness_db
+    username: root
+    password: root
+    options:
+      ssl: false
+
+  sql:
+    init:
+      mode: never
+
+logging:
+  level:
+    org.springframework.data.r2dbc: DEBUG
+    io.r2dbc.mysql: DEBUG
+    org.springframework.web: INFO
+
