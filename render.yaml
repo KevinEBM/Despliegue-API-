@@ -7,7 +7,6 @@ services:
     region: oregon
     autoDeploy: true
 
-    rootDir: workout-service
     dockerfilePath: workout-service/Dockerfile
 
     envVars:
