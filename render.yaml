@@ -7,6 +7,9 @@ services:
     region: oregon
     autoDeploy: true
 
+    rootDir: workout-service
+    dockerfilePath: workout-service/Dockerfile
+
     envVars:
       - key: SPRING_R2DBC_URL
         value: "r2dbc:postgresql://ep-withered-dust-ady1cqsp-pooler.c-2.us-east-1.aws.neon.tech:5432/neondb?sslmode=require"
