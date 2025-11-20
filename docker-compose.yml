@@ -1,5 +1,5 @@
 services:
-  # 🗄️ Base de datos MySQL
+  # 🗄 Base de datos MySQL
   mysql:
     image: mysql:8.0
     container_name: fitness-mysql
@@ -13,7 +13,7 @@ services:
     networks:
       - fitness-net
 
-  # 💪 Servicio de rutinas
+  #  Servicio de rutinas
   workout-service:
     build: ./workout-service
     container_name: workout-service
@@ -28,7 +28,7 @@ services:
     networks:
       - fitness-net
 
-  # 🧘 Servicio de hábitos
+  #  Servicio de hábitos
   habit-service:
     build: ./habit-service
     container_name: habit-service
@@ -43,7 +43,7 @@ services:
     networks:
       - fitness-net
 
-  # 🚪 API Gateway
+  #  API Gateway
   api-gateway:
     build: ./api-gateway
     container_name: api-gateway
@@ -55,11 +55,11 @@ services:
     networks:
       - fitness-net
 
-# 🔗 Red compartida por todos los servicios
+# Red compartida por todos los servicios
 networks:
   fitness-net:
     driver: bridge
 
-# 💾 Volumen persistente de la base de datos
+#  Volumen persistente de la base de datos
 volumes:
   mysql_data:
